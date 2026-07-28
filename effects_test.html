@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Effects Test</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        .theme-buttons, .weather-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .theme-btn, .weather-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #4a6bff;
+            color: white;
+        }
+        .weather-btn {
+            background: #f0f5ff;
+            color: #4a6bff;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        body.dark-theme .test-card {
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="weather-sunny">
+    <!-- Weather Background Elements -->
+    <div class="weather-background">
+        <div class="sun"></div>
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        
+        <!-- Rain Effect -->
+        <div class="rain-container">
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+        </div>
+        
+        <!-- Snow Effect -->
+        <div class="snow-container">
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+        </div>
+        
+        <!-- Storm Effect -->
+        <div class="storm-container">
+            <div class="lightning"></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h1>Weather Effects Test</h1>
+        
+        <div class="test-card">
+            <h2>Theme Controls</h2>
+            <div class="theme-buttons">
+                <button class="theme-btn" onclick="applyTheme('light')">Light Theme</button>
+                <button class="theme-btn" onclick="applyTheme('dark')">Dark Theme</button>
+            </div>
+        </div>
+
+        <div class="test-card">
+            <h2>Weather Effects</h2>
+            <div class="weather-buttons">
+                <button class="weather-btn" onclick="testWeather('Clear')">☀️ Sunny</button>
+                <button class="weather-btn" onclick="testWeather('Clouds')">☁️ Cloudy</button>
+                <button class="weather-btn" onclick="testWeather('Rain')">🌧️ Rainy</button>
+                <button class="weather-btn" onclick="testWeather('Snow')">❄️ Snowy</button>
+                <button class="weather-btn" onclick="testWeather('Thunderstorm')">⛈️ Stormy</button>
+            </div>
+            <p><strong>Effects:</strong></p>
+            <ul>
+                <li>Sunny: Pulsing sun animation</li>
+                <li>Cloudy: Floating clouds</li>
+                <li>Rainy: Falling rain drops</li>
+                <li>Snowy: Falling snowflakes with rotation</li>
+                <li>Stormy: Lightning flashes + rain</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function applyTheme(theme) {
+            document.body.classList.remove('dark-theme');
+            if (theme === 'dark') document.body.classList.add('dark-theme');
+        }
+        
+        function testWeather(condition) {
+            const classes = ['weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-stormy'];
+            document.body.classList.remove(...classes);
+            
+            const conditionClass = {
+                'Clear': 'weather-sunny',
+                'Clouds': 'weather-cloudy', 
+                'Rain': 'weather-rainy',
+                'Snow': 'weather-snowy',
+                'Thunderstorm': 'weather-stormy'
+            };
+            
+            document.body.classList.add(conditionClass[condition] || 'weather-sunny');
+        }
+    </script>
+</body>
+</html>

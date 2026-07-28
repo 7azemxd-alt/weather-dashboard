@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="weather-sunny">
+    <!-- Weather Background Elements -->
+    <div class="weather-background">
+        <div class="sun"></div>
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        
+        <!-- Rain Effect -->
+        <div class="rain-container">
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+            <div class="rain-drop"></div>
+        </div>
+        
+        <!-- Snow Effect -->
+        <div class="snow-container">
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+            <div class="snowflake">❄</div>
+            <div class="snowflake">❅</div>
+        </div>
+        
+        <!-- Storm Effect -->
+        <div class="storm-container">
+            <div class="lightning"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="dashboard-container">
+        <!-- Top Header -->
+        <header class="dashboard-header">
+            <!-- User & Settings on Left -->
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="greeting">Hello, <strong>User</strong></span>
+                        <div class="user-menu">
+                            <button class="menu-btn"><i class="fas fa-cog"></i> Settings</button>
+                            <button class="menu-btn"><i class="fas fa-bell"></i> Notifications</button>
+                            <button class="menu-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="welcome-section">
+                <h1 class="dashboard-title">Weather Dashboard</h1>
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="citySearch" class="search-input" placeholder="Search for a city or country..." autocomplete="off">
+                        <button class="search-btn" id="searchBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Current Location & Time Gadget -->
+                <div class="location-gadget" id="locationGadget">
+                    <div class="gadget-content">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="gadget-info">
+                            <span class="current-city" id="currentCity">Cairo, Egypt</span>
+                            <span class="current-time" id="currentTime">Monday, 3:45 PM</span>
+                        </div>
+                        <div class="gadget-temp">
+                            <span class="temp">28°C</span>
+                            <span class="condition">Sunny</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats on Right -->
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <i class="fas fa-thermometer-half"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">28°C</span>
+                        <span class="stat-label">Feels Like</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-wind"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">12 km/h</span>
+                        <span class="stat-label">Wind Speed</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-tint"></i>
+                    <div class="stat-info">
+                        <span class="stat-value">45%</span>
+                        <span class="stat-label">Humidity</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-content">
+            <!-- Left Column - Weather Details -->
+            <div class="left-column">
+                <div class="weather-card" id="mainWeatherCard">
+                    <!-- Weather Info Header -->
+                    <div class="weather-header">
+                        <div class="location-info">
+                            <h2 class="city-name" id="mainCityName">Cairo, Egypt</h2>
+                            <div class="date-time">
+                                <i class="far fa-clock"></i>
+                                <span id="mainDateTime">Monday, March 15, 2025 • 3:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="weather-condition-badge" id="conditionBadge">
+                            <i class="fas fa-sun"></i>
+                            <span>Sunny</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Temperature Display -->
+                    <div class="temperature-display">
+                        <div class="temp-main">
+                            <span class="temp-value" id="mainTempValue">28</span>
+                            <div class="temp-unit-toggle">
+                                <span class="temp-unit active" data-unit="c">°C</span>
+                                <span class="temp-separator">|</span>
+                                <span class="temp-unit" data-unit="f">°F</span>
+                            </div>
+                        </div>
+                        <div class="temp-details">
+                            <p class="weather-description" id="weatherDescription">
+                                Clear skies with bright sunshine. Perfect day for outdoor activities.
+                            </p>
+                            <div class="temp-range">
+                                <span class="temp-high">
+                                    <i class="fas fa-thermometer-full"></i>
+                                    High: <strong>31°C</strong>
+                                </span>
+                                <span class="temp-low">
+                                    <i class="fas fa-thermometer-empty"></i>
+                                    Low: <strong>22°C</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Details Grid -->
+                    <div class="weather-details-grid">
+                        <div class="detail-card">
+                            <i class="fas fa-temperature-high detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Feels Like</span>
+                                <span class="detail-value" id="detailFeelsLike">30°C</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-tint detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Humidity</span>
+                                <span class="detail-value" id="detailHumidity">45%</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-wind detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Wind Speed</span>
+                                <span class="detail-value" id="detailWindSpeed">12 km/h</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-compress-alt detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Pressure</span>
+                                <span class="detail-value" id="detailPressure">1013 hPa</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-eye detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">Visibility</span>
+                                <span class="detail-value" id="detailVisibility">10 km</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-sun detail-icon"></i>
+                            <div class="detail-info">
+                                <span class="detail-label">UV Index</span>
+                                <span class="detail-value" id="detailUVIndex">6 (High)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hourly Forecast -->
+                    <div class="hourly-forecast">
+                        <h3 class="forecast-title">Hourly Forecast</h3>
+                        <div class="hourly-list">
+                            <div class="hour-item">
+                                <span class="hour-time">Now</span>
+                                <i class="fas fa-sun hour-icon"></i>
+                                <span class="hour-temp">28°C</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="hour-time">4 PM</span>
+                                <i class="fas fa-sun hour-icon"></i>
+                                <span class="hour-temp">27°C</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="hour-time">5 PM</span>
+                                <i class="fas fa-sun hour-icon"></i>
+                                <span class="hour-temp">26°C</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="hour-time">6 PM</span>
+                                <i class="fas fa-cloud-sun hour-icon"></i>
+                                <span class="hour-temp">25°C</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="hour-time">7 PM</span>
+                                <i class="fas fa-cloud-sun hour-icon"></i>
+                                <span class="hour-temp">24°C</span>
+                            </div>
+                            <div class="hour-item">
+                                <span class="hour-time">8 PM</span>
+                                <i class="fas fa-moon hour-icon"></i>
+                                <span class="hour-temp">23°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Weather News -->
+            <div class="right-column">
+                <div class="news-section">
+                    <div class="news-header">
+                        <h2 class="news-title">
+                            <i class="fas fa-newspaper"></i> Weather News Worldwide
+                        </h2>
+                        <button class="refresh-news">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+
+                    <div class="news-list">
+                        <article class="news-card breaking">
+                            <div class="news-badge">BREAKING</div>
+                            <div class="news-content">
+                                <h3 class="news-headline">Major Storm System Approaches East Coast</h3>
+                                <p class="news-excerpt">
+                                    A powerful storm system is expected to bring heavy rainfall and strong winds to the East Coast, with potential flooding in low-lying areas.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> New York, USA</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 2 hours ago</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-content">
+                                <h3 class="news-headline">Record Heatwave Hits Southern Europe</h3>
+                                <p class="news-excerpt">
+                                    Temperatures in Spain and Portugal have reached record highs for March, with authorities issuing heat warnings.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> Madrid, Spain</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 5 hours ago</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-content">
+                                <h3 class="news-headline">Unusual Snowfall in Middle East</h3>
+                                <p class="news-excerpt">
+                                    Several areas in the Middle East have experienced rare snowfall, with Jerusalem receiving its heaviest snow in a decade.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> Jerusalem, Palestine</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 1 day ago</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-content">
+                                <h3 class="news-headline">Tropical Cyclone Forms in Pacific</h3>
+                                <p class="news-excerpt">
+                                    A new tropical cyclone has formed in the Pacific Ocean, with projections showing it may strengthen over the next 48 hours.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> Pacific Ocean</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 2 days ago</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-content">
+                                <h3 class="news-headline">Drought Conditions Worsen in California</h3>
+                                <p class="news-excerpt">
+                                    California faces another year of severe drought, with reservoir levels at historic lows and water restrictions likely.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> California, USA</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 3 days ago</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-content">
+                                <h3 class="news-headline">Northern Lights Visible at Unusual Latitudes</h3>
+                                <p class="news-excerpt">
+                                    A strong solar storm has made the aurora borealis visible as far south as Scotland and parts of Northern England.
+                                </p>
+                                <div class="news-meta">
+                                    <span class="news-location"><i class="fas fa-map-marker-alt"></i> Scotland, UK</span>
+                                    <span class="news-time"><i class="far fa-clock"></i> 4 days ago</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Weather Alerts -->
+                    <div class="alerts-section">
+                        <h3 class="alerts-title">
+                            <i class="fas fa-exclamation-triangle"></i> Active Weather Alerts
+                        </h3>
+                        <div class="alert-list">
+                            <div class="alert-item severe">
+                                <i class="fas fa-bolt"></i>
+                                <div class="alert-content">
+                                    <strong>Severe Thunderstorm Warning</strong>
+                                    <span>Until 8:00 PM EST - Eastern Region</span>
+                                </div>
+                            </div>
+                            <div class="alert-item moderate">
+                                <i class="fas fa-wind"></i>
+                                <div class="alert-content">
+                                    <strong>Wind Advisory</strong>
+                                    <span>Until 6:00 AM Tomorrow - Coastal Areas</span>
+                                </div>
+                            </div>
+                            <div class="alert-item mild">
+                                <i class="fas fa-umbrella"></i>
+                                <div class="alert-content">
+                                    <strong>Flood Watch</strong>
+                                    <span>Through Wednesday - River Basins</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h3><i class="fas fa-cog"></i> Dashboard Settings</h3>
+            <button class="close-settings" id="closeSettings">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="settings-content">
+            <div class="setting-item">
+                <label for="tempUnit">Temperature Unit</label>
+                <select id="tempUnit" class="setting-select">
+                    <option value="c">Celsius (°C)</option>
+                    <option value="f">Fahrenheit (°F)</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="themeSelect">Theme</label>
+                <select id="themeSelect" class="setting-select">
+                    <option value="auto">Auto (Based on Weather)</option>
+                    <option value="light">Light Theme</option>
+                    <option value="dark">Dark Theme</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="notifications" checked>
+                    Enable Notifications
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="locationServices" checked>
+                    Use Location Services
+                </label>
+            </div>
+            <button class="save-settings" id="saveSettings">
+                <i class="fas fa-save"></i> Save Settings
+            </button>
+        </div>
+    </div>
+    <button class="menu-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

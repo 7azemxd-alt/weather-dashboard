@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Theme Test</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .theme-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .theme-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #4a6bff;
+            color: white;
+        }
+        .weather-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .weather-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #f0f5ff;
+            color: #4a6bff;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="weather-sunny">
+    <div class="test-container">
+        <h1>Weather Dashboard Theme Test</h1>
+
+        <div class="test-card">
+            <h2>Theme Controls</h2>
+            <div class="theme-buttons">
+                <button class="theme-btn" onclick="applyTheme('light')">Light Theme</button>
+                <button class="theme-btn" onclick="applyTheme('dark')">Dark Theme</button>
+                <button class="theme-btn" onclick="applyTheme('auto')">Auto Theme</button>
+            </div>
+        </div>
+
+        <div class="test-card">
+            <h2>Weather Backgrounds</h2>
+            <div class="weather-buttons">
+                <button class="weather-btn" onclick="testWeather('Clear')">Sunny/Clear</button>
+                <button class="weather-btn" onclick="testWeather('Clouds')">Cloudy</button>
+                <button class="weather-btn" onclick="testWeather('Rain')">Rainy</button>
+                <button class="weather-btn" onclick="testWeather('Snow')">Snowy</button>
+                <button class="weather-btn" onclick="testWeather('Thunderstorm')">Stormy</button>
+            </div>
+        </div>
+
+        <div class="test-card">
+            <h2>Sample UI Elements</h2>
+            <p>This is some sample text to test color changes.</p>
+            <button class="theme-btn">Sample Button</button>
+            <div style="background: rgba(255, 255, 255, 0.9); padding: 10px; border-radius: 5px; margin-top: 10px;">
+                Sample card content
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyTheme(theme) {
+            const body = document.body;
+
+            // Remove existing theme classes
+            body.classList.remove('dark-theme');
+
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+            }
+            // For 'light' and 'auto', no additional class needed
+
+            console.log('Applied theme:', theme);
+        }
+
+        function testWeather(condition) {
+            const body = document.body;
+
+            // Remove existing weather classes but keep theme classes
+            body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-stormy', 'weather-night');
+
+            const conditionClass = {
+                'Clear': 'weather-sunny',
+                'Clouds': 'weather-cloudy',
+                'Rain': 'weather-rainy',
+                'Snow': 'weather-snowy',
+                'Thunderstorm': 'weather-stormy'
+            };
+
+            body.classList.add(conditionClass[condition] || 'weather-sunny');
+            console.log('Applied weather:', condition, '->', conditionClass[condition]);
+        }
+
+        // Test initial state
+        console.log('Initial body classes:', document.body.className);
+    </script>
+</body>
+</html>
